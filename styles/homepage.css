@@ -112,7 +112,7 @@ body{
 .nav-center{
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 36px;
 }
 
 .nav-center a{
@@ -604,5 +604,132 @@ font-weight: 500;
     .nav-center{
         display: none;
     }
+
+}
+/* =========================
+   NAVBAR ACTIVE
+========================= */
+
+.navbar{
+    transition: all 0.35s ease;
+}
+
+.navbar-active{
+
+    background: rgba(7,11,20,0.96);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,0.25);
+
+}
+
+/* =========================
+   NAV LINKS
+========================= */
+
+.nav-link{
+
+    position: relative;
+
+    transition: all 0.3s ease;
+
+}
+
+.nav-link::after{
+
+    content: '';
+
+    position: absolute;
+
+    left: 0;
+    bottom: -8px;
+
+    width: 0%;
+    height: 2px;
+
+    background: #8B5CF6;
+
+    transition: all 0.3s ease;
+
+}
+
+.nav-link:hover::after,
+.active-link::after{
+
+    width: 100%;
+
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal-card{
+
+    opacity: 0;
+
+    transform: translateY(40px);
+
+    animation:
+    revealAnimation 0.8s ease forwards;
+
+}
+
+@keyframes revealAnimation{
+
+    to{
+
+        opacity: 1;
+
+        transform: translateY(0px);
+
+    }
+
+}
+
+/* =========================
+   BUTTON HOVER
+========================= */
+
+.primary-btn,
+.top-card button,
+.continue-section button{
+
+    transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+}
+
+.primary-btn:hover,
+.top-card button:hover,
+.continue-section button:hover{
+
+    transform: translateY(-3px);
+
+    box-shadow:
+    0 10px 30px rgba(124,58,237,0.25);
+
+}
+
+/* =========================
+   CONTENT HOVER
+========================= */
+
+.content-item{
+
+    transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+
+}
+
+.content-item:hover{
+
+    background: rgba(255,255,255,0.02);
+
+    transform: translateX(6px);
 
 }

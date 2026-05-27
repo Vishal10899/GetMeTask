@@ -1,4 +1,165 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function Home() {
+
+  const [navbarShadow, setNavbarShadow] = useState(false);
+
+  const [liveUsers, setLiveUsers] = useState(1248);
+  const [stats, setStats] = useState({
+    learners: 0,
+    questions: 0,
+    interviews: 0,
+    success: 0,
+  });
+  const [statsStarted, setStatsStarted] = useState(false);
+
+  /* =========================
+     NAVBAR SCROLL EFFECT
+  ========================= */
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+
+      if (window.scrollY > 40) {
+        setNavbarShadow(true);
+      } else {
+        setNavbarShadow(false);
+      }
+
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+  }, []);
+
+  /* =========================
+     LIVE USERS
+  ========================= */
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setLiveUsers((prev) => {
+
+        const randomIncrease =
+          Math.floor(Math.random() * 3) + 1;
+
+        return prev + randomIncrease;
+
+      });
+
+    }, 4000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+  useEffect(() => {
+
+  const statsSection =
+    document.querySelector(".stats-section");
+
+  if (!statsSection) return;
+
+  const observer = new IntersectionObserver(
+
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (
+          entry.isIntersecting &&
+          !statsStarted
+        ) {
+
+          setStatsStarted(true);
+
+          let learners = 0;
+          let questions = 0;
+          let interviews = 0;
+          let success = 0;
+
+          const interval = setInterval(() => {
+
+            learners += 500;
+            questions += 20;
+            interviews += 2;
+            success += 2;
+
+            setStats({
+              learners:
+                learners > 25000
+                  ? 25000
+                  : learners,
+
+              questions:
+                questions > 1000
+                  ? 1000
+                  : questions,
+
+              interviews:
+                interviews > 50
+                  ? 50
+                  : interviews,
+
+              success:
+                success > 95
+                  ? 95
+                  : success,
+            });
+
+            if (
+              learners >= 25000 &&
+              questions >= 1000 &&
+              interviews >= 50 &&
+              success >= 95
+            ) {
+              clearInterval(interval);
+            }
+
+          }, 30);
+
+        }
+
+      });
+
+    },
+
+    {
+      threshold: 0.35,
+    }
+
+  );
+
+  observer.observe(statsSection);
+
+  return () => observer.disconnect();
+
+}, [statsStarted]);
+
+  /* =========================
+     SMOOTH SCROLL
+  ========================= */
+
+  const scrollToSection = (id) => {
+
+    const section = document.getElementById(id);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+
+  };
+
   return (
     <div className="app">
 
@@ -6,7 +167,14 @@ export default function Home() {
           NAVBAR
       ========================= */}
 
-      <nav className="navbar">
+      <nav
+        className={
+          navbarShadow
+            ? "navbar navbar-active"
+            : "navbar"
+        }
+      >
+
 
         <div className="nav-container">
 
@@ -24,18 +192,28 @@ export default function Home() {
 
           <div className="nav-center">
 
-            <a href="#">Features</a>
-            <a href="#">Roadmaps</a>
-            <a href="#">Mock Interviews</a>
-            <a href="#">Resources</a>
-            <a href="#">Pricing</a>
+            <button onClick={() => scrollToSection("features")}>
+              Features
+            </button>
+            <button onClick={() => scrollToSection("workflow")}>
+              Roadmaps
+            </button>
+            <button onClick={() => scrollToSection("product")}>
+              Resources
+            </button>
+            <button onClick={() => scrollToSection("cta")}>
+              Pricing
+            </button>
+            <button onClick={() => scrollToSection("cta")}>
+              News
+            </button>
 
           </div>
 
           <div className="nav-right">
 
             <a
-              href="#"
+              href="./login"
               className="login-btn"
             >
               Log in
@@ -88,17 +266,32 @@ export default function Home() {
 
             <div className="hero-buttons">
 
-              <button className="primary-btn">
+              <button
+                className="primary-btn"
+                onClick={() => scrollToSection("features")}
+              >
 
                 Start Learning Free →
 
               </button>
 
-              <button className="secondary-btn">
+              <button
+                className="secondary-btn"
+                onClick={() => scrollToSection("workflow")}
+              >
 
                 ▶ Explore Features
 
               </button>
+
+            </div>
+            <div className="live-users">
+
+              <div className="live-dot"></div>
+
+              <span>
+                {liveUsers.toLocaleString()} learners preparing right now
+              </span>
 
             </div>
 
@@ -220,7 +413,10 @@ export default function Home() {
           FEATURES
       ========================= */}
 
-      <section className="features-section">
+      <section
+        className="features-section"
+        id="features"
+      >
 
         <div className="features-container">
 
@@ -346,7 +542,10 @@ export default function Home() {
           WORKFLOW
       ========================= */}
 
-      <section className="workflow-section">
+      <section
+        className="workflow-section"
+        id="workflow"
+      >
 
         <div className="workflow-container">
 
@@ -414,7 +613,10 @@ export default function Home() {
           PRODUCT SECTION
       ========================= */}
 
-      <section className="product-section">
+      <section
+        className="product-section"
+        id="product"
+      >
 
         <div className="product-container">
 
@@ -527,7 +729,9 @@ export default function Home() {
 
           <div className="stat-box">
 
-            <h2>25,000+</h2>
+            <h2>
+              {stats.learners.toLocaleString()}+
+            </h2>
 
             <p>Active Learners</p>
 
@@ -535,24 +739,27 @@ export default function Home() {
 
           <div className="stat-box">
 
-            <h2>1000+</h2>
-
+            <h2>
+              {stats.questions}+
+            </h2>
             <p>Practice Questions</p>
 
           </div>
 
           <div className="stat-box">
 
-            <h2>50+</h2>
-
+            <h2>
+              {stats.interviews}+
+            </h2>
             <p>Mock Interviews</p>
 
           </div>
 
           <div className="stat-box">
 
-            <h2>95%</h2>
-
+            <h2>
+              {stats.success}%
+            </h2>
             <p>Placement Success Rate</p>
 
           </div>
@@ -645,7 +852,10 @@ export default function Home() {
           CTA SECTION
       ========================= */}
 
-      <section className="cta-section">
+      <section
+        className="cta-section"
+        id="cta"
+      >
 
         <div className="cta-container">
 

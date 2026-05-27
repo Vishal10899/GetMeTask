@@ -1,12 +1,31 @@
 "use client";
 
 import { useState } from "react";
+
+import { useRouter } from "next/navigation";
+
 import "../../styles/login.css";
 
 export default function LoginPage() {
 
+  const router = useRouter();
+
   const [showPassword, setShowPassword] =
     useState(false);
+
+  /* =========================
+     HANDLE LOGIN
+  ========================= */
+
+  const handleLogin = (e) => {
+
+    e.preventDefault();
+
+    console.log("Login Submitted");
+
+    router.push("/home");
+
+  };
 
   return (
 
@@ -20,7 +39,10 @@ export default function LoginPage() {
           AI Powered Placement Preparation Platform
         </p>
 
-        <form id="loginForm">
+        <form
+          id="loginForm"
+          onSubmit={handleLogin}
+        >
 
           <div className="input-group">
 
@@ -69,20 +91,6 @@ export default function LoginPage() {
             Login
           </button>
 
-          <p className="admin-link">
-
-            Admin?
-
-            {" "}
-
-            <a href="/admin-login">
-
-              Login Here
-
-            </a>
-
-          </p>
-
         </form>
 
       </div>
@@ -90,4 +98,5 @@ export default function LoginPage() {
     </div>
 
   );
+
 }

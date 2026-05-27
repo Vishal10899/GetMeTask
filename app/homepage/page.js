@@ -1,448 +1,491 @@
+"use client";
+import { useEffect, useState } from "react";
 import "../../styles/homepage.css";
 
 export default function DashboardPage() {
+  const [navbarShadow, setNavbarShadow] = useState(false);
+    /* =========================
+     NAVBAR SCROLL EFFECT
+  ========================= */
 
-  return (
+    useEffect(() => {
 
-    <div className="app">
+      const handleScroll = () => {
 
-      {/* =========================
+        if (window.scrollY > 20) {
+          setNavbarShadow(true);
+        }
+        else {
+          setNavbarShadow(false);
+        }
+
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+
+    }, []);
+
+    return (
+
+      <div className="app">
+
+        {/* =========================
           NAVBAR
       ========================= */}
 
-      <nav className="navbar">
+        <nav
+          className={
+            navbarShadow
+              ? "navbar navbar-active"
+              : "navbar"
+          }
+        >
 
-        <div className="nav-container">
+          <div className="nav-container">
 
-          {/* LEFT */}
+            {/* LEFT */}
 
-          <div className="nav-left">
+            <div className="nav-left">
 
-            <div className="logo">
-              GMT
+              <div className="logo">
+                GMT
+              </div>
+
+              <h2 className="brand-name">
+                GetMeTask
+              </h2>
+
             </div>
 
-            <h2 className="brand-name">
-              GetMeTask
-            </h2>
+            {/* CENTER */}
 
-          </div>
+            <div className="nav-center">
 
-          {/* CENTER */}
+              <a href="#" className="nav-link active-link">
+                Roadmap
+              </a>
 
-          <div className="nav-center">
+              <a href="#" className="nav-link">
+                Notes
+              </a>
 
-            <a href="#">Roadmap</a>
 
-            <a href="#">Notes</a>
+              <a href="#" className="nav-link">
+                Resume
+              </a>
 
-            <a href="#">Resume</a>
 
-            <a href="#">Interview</a>
+              <a href="#" className="nav-link">
+                Interview
+              </a>
 
-          </div>
+              {/* RIGHT */}
 
-          {/* RIGHT */}
+              <div className="nav-right">
 
-          <div className="nav-right">
+                <input
+                  type="text"
+                  className="search-box"
+                  placeholder="Search topics..."
+                />
 
-            <input
-              type="text"
-              className="search-box"
-              placeholder="Search topics..."
-            />
+                <span>🔥 12</span>
 
-            <span>🔥 12</span>
+                <div className="profile">
+                  V
+                </div>
 
-            <div className="profile">
-              V
+              </div>
+
             </div>
+           </div> 
+        </nav>
 
-          </div>
-
-        </div>
-
-      </nav>
-
-      {/* =========================
+        {/* =========================
           MAIN CONTAINER
       ========================= */}
 
-      <div className="container">
+        <div className="container">
 
-        {/* =========================
+          {/* =========================
             TOP CARDS
         ========================= */}
 
-        <div className="top-cards">
+          <div className="top-cards">
 
-          {/* CARD 1 */}
+            {/* CARD 1 */}
 
-          <div className="top-card roadmap-card">
+            <div className="top-card roadmap-card">
 
-            <div>
+              <div>
 
-              <h3>
-                Generate Roadmap
-              </h3>
+                <h3>
+                  Generate Roadmap
+                </h3>
 
-              <p>
-                AI roadmap based on your goal
-              </p>
+                <p>
+                  AI roadmap based on your goal
+                </p>
 
-              <button>
-                Generate
-              </button>
+                <button className="primary-btn">
+  Generate
+</button>
+
+              </div>
+
+              <div className="top-icon">
+                🎯
+              </div>
 
             </div>
 
-            <div className="top-icon">
-              🎯
+            {/* CARD 2 */}
+
+            <div className="top-card notes-card">
+
+              <div>
+
+                <h3>
+                  Generate Notes
+                </h3>
+
+                <p>
+                  AI notes for any topic
+                </p>
+
+                <button className="primary-btn">
+                  Create Notes
+                </button>
+
+              </div>
+
+              <div className="top-icon">
+                📄
+              </div>
+
+            </div>
+
+            {/* CARD 3 */}
+
+            <div className="top-card resume-card">
+
+              <div>
+
+                <h3>
+                  Resume Analysis
+                </h3>
+
+                <p>
+                  Improve your ATS score
+                </p>
+
+                <button className="primary-btn">
+                  Upload
+                </button>
+
+              </div>
+
+              <div className="top-icon">
+                🧾
+              </div>
+
+            </div>
+
+            {/* CARD 4 */}
+
+            <div className="top-card interview-card">
+
+              <div>
+
+                <h3>
+                  Mock Interview
+                </h3>
+
+                <p>
+                  Practice interview rounds
+                </p>
+
+                <button >
+                  Start
+                </button>
+
+              </div>
+
+              <div className="top-icon">
+                🎤
+              </div>
+
             </div>
 
           </div>
 
-          {/* CARD 2 */}
-
-          <div className="top-card notes-card">
-
-            <div>
-
-              <h3>
-                Generate Notes
-              </h3>
-
-              <p>
-                AI notes for any topic
-              </p>
-
-              <button>
-                Create Notes
-              </button>
-
-            </div>
-
-            <div className="top-icon">
-              📄
-            </div>
-
-          </div>
-
-          {/* CARD 3 */}
-
-          <div className="top-card resume-card">
-
-            <div>
-
-              <h3>
-                Resume Analysis
-              </h3>
-
-              <p>
-                Improve your ATS score
-              </p>
-
-              <button>
-                Upload
-              </button>
-
-            </div>
-
-            <div className="top-icon">
-              🧾
-            </div>
-
-          </div>
-
-          {/* CARD 4 */}
-
-          <div className="top-card interview-card">
-
-            <div>
-
-              <h3>
-                Mock Interview
-              </h3>
-
-              <p>
-                Practice interview rounds
-              </p>
-
-              <button>
-                Start
-              </button>
-
-            </div>
-
-            <div className="top-icon">
-              🎤
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* =========================
+          {/* =========================
             MAIN LAYOUT
         ========================= */}
 
-        <div className="content-layout">
+          <div className="content-layout">
 
-          {/* =========================
+            {/* =========================
               LEFT SIDE
           ========================= */}
 
-          <div className="main-content">
+            <div className="main-content">
 
-            <div className="latest-content">
+              <div className="latest-content">
 
-              {/* HEADER */}
+                {/* HEADER */}
 
-              <div className="section-header">
+                <div className="section-header">
 
-                <h2>
-                  Latest Content
-                </h2>
+                  <h2>
+                    Latest Content
+                  </h2>
 
-                <a href="#">
-                  View All →
-                </a>
+                  <a href="#">
+                    View All →
+                  </a>
 
-              </div>
+                </div>
 
-              {/* TABS */}
+                {/* TABS */}
 
-              <div className="content-tabs">
+                <div className="content-tabs">
 
-                <button className="active">
-                  All
-                </button>
+                  <button className="tab-btn active">
+  All
+</button>
 
-                <button>
-                  DSA
-                </button>
+                  <button className="tab-btn">
+                    DSA
+                  </button>
 
-                <button>
-                  Python
-                </button>
+                  <button className="tab-btn">
+                    Python
+                  </button>
 
-                <button>
-                  DBMS
-                </button>
+                  <button className="tab-btn">
+                    DBMS
+                  </button>
 
-                <button>
-                  OS
-                </button>
+                  <button className="tab-btn">
+                    OS
+                  </button>
 
-                <button>
-                  Aptitude
-                </button>
+                  <button className="tab-btn">
+                    Aptitude
+                  </button>
 
-              </div>
+                </div>
 
-              {/* CONTENT */}
+                {/* CONTENT */}
 
-              <div className="content-scroll">
+                <div className="content-scroll">
 
-                <div className="content-list">
+                  <div className="content-list">
 
-                  {/* ITEM 1 */}
+                    {/* ITEM 1 */}
 
-                  <div className="content-item">
+                    <div className="content-item reveal-card">
 
-                    <div className="content-left">
+                      <div className="content-left">
 
-                      <div className="content-icon purple">
-                        {}
-                      </div>
+                        <div className="content-icon purple">
+                          { }
+                        </div>
 
-                      <div>
+                        <div>
 
-                        <h3>
-                          Two Pointer Technique
-                        </h3>
+                          <h3>
+                            Two Pointer Technique
+                          </h3>
 
-                        <p>
-                          Complete interview preparation guide with questions
-                        </p>
+                          <p>
+                            Complete interview preparation guide with questions
+                          </p>
 
-                        <div className="content-meta">
+                          <div className="content-meta">
 
-                          <span>
-                            45 Questions
-                          </span>
+                            <span>
+                              45 Questions
+                            </span>
 
-                          <span>•</span>
+                            <span>•</span>
 
-                          <span>
-                            1 Hour
-                          </span>
+                            <span>
+                              1 Hour
+                            </span>
 
-                          <span>•</span>
+                            <span>•</span>
 
-                          <span>
-                            Intermediate
-                          </span>
+                            <span>
+                              Intermediate
+                            </span>
+
+                          </div>
 
                         </div>
 
                       </div>
 
+                      <a href="#">
+                        Continue →
+                      </a>
+
                     </div>
 
-                    <a href="#">
-                      Continue →
-                    </a>
+                    {/* ITEM 2 */}
 
-                  </div>
+                    <div className="content-item reveal-card">
 
-                  {/* ITEM 2 */}
+                      <div className="content-left">
 
-                  <div className="content-item">
+                        <div className="content-icon green">
+                          Py
+                        </div>
 
-                    <div className="content-left">
+                        <div>
 
-                      <div className="content-icon green">
-                        Py
-                      </div>
+                          <h3>
+                            Python List Comprehension
+                          </h3>
 
-                      <div>
+                          <p>
+                            Learn advanced python shortcuts with examples
+                          </p>
 
-                        <h3>
-                          Python List Comprehension
-                        </h3>
+                          <div className="content-meta">
 
-                        <p>
-                          Learn advanced python shortcuts with examples
-                        </p>
+                            <span>
+                              20 Exercises
+                            </span>
 
-                        <div className="content-meta">
+                            <span>•</span>
 
-                          <span>
-                            20 Exercises
-                          </span>
+                            <span>
+                              35 Min
+                            </span>
 
-                          <span>•</span>
+                            <span>•</span>
 
-                          <span>
-                            35 Min
-                          </span>
+                            <span>
+                              Beginner
+                            </span>
 
-                          <span>•</span>
-
-                          <span>
-                            Beginner
-                          </span>
+                          </div>
 
                         </div>
 
                       </div>
 
+                      <a href="#">
+                        Start →
+                      </a>
+
                     </div>
 
-                    <a href="#">
-                      Start →
-                    </a>
+                    {/* ITEM 3 */}
 
-                  </div>
+                   <div className="content-item reveal-card">
 
-                  {/* ITEM 3 */}
+                      <div className="content-left">
 
-                  <div className="content-item">
+                        <div className="content-icon yellow">
+                          📊
+                        </div>
 
-                    <div className="content-left">
+                        <div>
 
-                      <div className="content-icon yellow">
-                        📊
-                      </div>
+                          <h3>
+                            Time & Work Questions
+                          </h3>
 
-                      <div>
+                          <p>
+                            Shortcut methods for placement aptitude
+                          </p>
 
-                        <h3>
-                          Time & Work Questions
-                        </h3>
+                          <div className="content-meta">
 
-                        <p>
-                          Shortcut methods for placement aptitude
-                        </p>
+                            <span>
+                              30 Questions
+                            </span>
 
-                        <div className="content-meta">
+                            <span>•</span>
 
-                          <span>
-                            30 Questions
-                          </span>
+                            <span>
+                              50 Min
+                            </span>
 
-                          <span>•</span>
+                            <span>•</span>
 
-                          <span>
-                            50 Min
-                          </span>
+                            <span>
+                              Moderate
+                            </span>
 
-                          <span>•</span>
-
-                          <span>
-                            Moderate
-                          </span>
+                          </div>
 
                         </div>
 
                       </div>
 
+                      <a href="#">
+                        Practice →
+                      </a>
+
                     </div>
 
-                    <a href="#">
-                      Practice →
-                    </a>
+                    {/* ITEM 4 */}
 
-                  </div>
+                    <div className="content-item reveal-card">
 
-                  {/* ITEM 4 */}
+                      <div className="content-left">
 
-                  <div className="content-item">
+                        <div className="content-icon purple">
+                          SQL
+                        </div>
 
-                    <div className="content-left">
+                        <div>
 
-                      <div className="content-icon purple">
-                        SQL
-                      </div>
+                          <h3>
+                            DBMS SQL Interview Set
+                          </h3>
 
-                      <div>
+                          <p>
+                            Most asked SQL queries in product companies
+                          </p>
 
-                        <h3>
-                          DBMS SQL Interview Set
-                        </h3>
+                          <div className="content-meta">
 
-                        <p>
-                          Most asked SQL queries in product companies
-                        </p>
+                            <span>
+                              60 Questions
+                            </span>
 
-                        <div className="content-meta">
+                            <span>•</span>
 
-                          <span>
-                            60 Questions
-                          </span>
+                            <span>
+                              90 Min
+                            </span>
 
-                          <span>•</span>
+                            <span>•</span>
 
-                          <span>
-                            90 Min
-                          </span>
+                            <span>
+                              Advanced
+                            </span>
 
-                          <span>•</span>
-
-                          <span>
-                            Advanced
-                          </span>
+                          </div>
 
                         </div>
 
                       </div>
 
-                    </div>
+                      <a href="#">
+                        Open →
+                      </a>
 
-                    <a href="#">
-                      Open →
-                    </a>
+                    </div>
 
                   </div>
 
@@ -452,129 +495,129 @@ export default function DashboardPage() {
 
             </div>
 
-          </div>
-
-          {/* =========================
+            {/* =========================
               RIGHT SIDE
           ========================= */}
 
-          <div className="right-panel">
+            <div className="right-panel">
 
-            <div className="right-panel-card">
+              <div className="right-panel-card">
 
-              {/* CONTINUE */}
+                {/* CONTINUE */}
 
-              <div className="continue-section">
+                <div className="continue-section">
 
-                <h2>
-                  Continue Journey 👋
-                </h2>
+                  <h2>
+                    Continue Journey 👋
+                  </h2>
 
-                <p>
-                  Pick up where you left off
-                </p>
+                  <p>
+                    Pick up where you left off
+                  </p>
 
-                <div className="continue-course">
+                  <div className="continue-course">
 
-                  <div className="course-icon">
-                    {"</>"}
+                    <div className="course-icon">
+                      {"</>"}
+                    </div>
+
+                    <div>
+
+                      <h3>
+                        Binary Search
+                      </h3>
+
+                      <span>
+                        43% Completed
+                      </span>
+
+                    </div>
+
                   </div>
+
+                  <button>
+                    Continue Learning →
+                  </button>
+
+                </div>
+
+                {/* DIVIDER */}
+
+                <div className="panel-divider"></div>
+
+                {/* ITEM */}
+
+                <div className="panel-item">
 
                   <div>
 
-                    <h3>
-                      Binary Search
-                    </h3>
+                    <h4>
+                      Arrays in DSA
+                    </h4>
 
-                    <span>
-                      43% Completed
-                    </span>
+                    <p>
+                      20 Questions
+                    </p>
 
                   </div>
 
-                </div>
-
-                <button>
-                  Continue Learning →
-                </button>
-
-              </div>
-
-              {/* DIVIDER */}
-
-              <div className="panel-divider"></div>
-
-              {/* ITEM */}
-
-              <div className="panel-item">
-
-                <div>
-
-                  <h4>
-                    Arrays in DSA
-                  </h4>
-
-                  <p>
-                    20 Questions
-                  </p>
+                  <a href="#">
+                    Start →
+                  </a>
 
                 </div>
 
-                <a href="#">
-                  Start →
-                </a>
+                {/* DIVIDER */}
 
-              </div>
+                <div className="panel-divider"></div>
 
-              {/* DIVIDER */}
+                {/* ITEM */}
 
-              <div className="panel-divider"></div>
+                <div className="panel-item">
 
-              {/* ITEM */}
+                  <div>
 
-              <div className="panel-item">
+                    <h4>
+                      Python Basics
+                    </h4>
 
-                <div>
+                    <p>
+                      15 Exercises
+                    </p>
 
-                  <h4>
-                    Python Basics
-                  </h4>
+                  </div>
 
-                  <p>
-                    15 Exercises
-                  </p>
-
-                </div>
-
-                <a href="#">
-                  Practice →
-                </a>
-
-              </div>
-
-              {/* DIVIDER */}
-
-              <div className="panel-divider"></div>
-
-              {/* ITEM */}
-
-              <div className="panel-item">
-
-                <div>
-
-                  <h4>
-                    DBMS Interview Qs
-                  </h4>
-
-                  <p>
-                    Top company questions
-                  </p>
+                  <a href="#">
+                    Practice →
+                  </a>
 
                 </div>
 
-                <a href="#">
-                  Open →
-                </a>
+                {/* DIVIDER */}
+
+                <div className="panel-divider"></div>
+
+                {/* ITEM */}
+
+                <div className="panel-item">
+
+                  <div>
+
+                    <h4>
+                      DBMS Interview Qs
+                    </h4>
+
+                    <p>
+                      Top company questions
+                    </p>
+
+                  </div>
+
+                  <a href="#">
+                    Open →
+                  </a>
+
+                </div>
 
               </div>
 
@@ -586,7 +629,5 @@ export default function DashboardPage() {
 
       </div>
 
-    </div>
-
-  );
-}
+    );
+  }
